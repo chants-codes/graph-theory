@@ -7,10 +7,10 @@
 const int maxn = 2e4+5;
 using namespace std;
 
-vector <int> G[maxn];//ÁÚ½Ó¾ØÕó´æÍ¼
+vector <int> G[maxn];//é‚»æ¥çŸ©é˜µå­˜å›¾
 int LOW[maxn];
 int DFN[maxn];
-set<int> ans;//²éÕÒ¸îµã¹ı³ÌÖĞ¿ÉÄÜ³öÏÖÖØ¸´
+set<int> ans;//æŸ¥æ‰¾å‰²ç‚¹è¿‡ç¨‹ä¸­å¯èƒ½å‡ºç°é‡å¤
 int timing;
 
 void tarjan(int u,int rt){
@@ -23,25 +23,25 @@ void tarjan(int u,int rt){
             tarjan(v,rt);
             LOW[u]=min(LOW[u],LOW[v]);
             if(u!=rt&&LOW[v]>=DFN[u]) ans.insert(u);
-        }//ÉÏÒ»ĞĞ£¬²»ÊÇ¸ù½ÚµãÇÒ·ÖÀë¸ù²¿ºÍ×ÓÊ÷ÄÇÃ´¾ÍÊÇ¸îµã
-        LOW[u]=min(LOW[u],DFN[v]);//¸üĞÂ
+        }//ä¸Šä¸€è¡Œï¼Œä¸æ˜¯æ ¹èŠ‚ç‚¹ä¸”åˆ†ç¦»æ ¹éƒ¨å’Œå­æ ‘é‚£ä¹ˆå°±æ˜¯å‰²ç‚¹
+        LOW[u]=min(LOW[u],DFN[v]);//æ›´æ–°
         if(child>=2&&u==rt) ans.insert(u);
-    }//ÉÏÒ»ĞĞ£¬ÊÇ¸ù½ÚµãÇÒÓĞÒ»¸öÒÔÉÏµÄ×ÓÊ÷
+    }//ä¸Šä¸€è¡Œï¼Œæ˜¯æ ¹èŠ‚ç‚¹ä¸”æœ‰ä¸€ä¸ªä»¥ä¸Šçš„å­æ ‘
 }
 
 int main(){
     int n,m;
-    cin>>n>>m;//¶ÁÈëµãÊıºÍ±ßÊı
+    cin>>n>>m;//è¯»å…¥ç‚¹æ•°å’Œè¾¹æ•°
     int x,y;
     for(int i=1;i<=m;i++){
-        cin>>x>>y;//¶ÁÈëÁ½¸öÁ¬½ÓµÄµã
+        cin>>x>>y;//è¯»å…¥ä¸¤ä¸ªè¿æ¥çš„ç‚¹
         G[x].push_back(y);
-        G[y].push_back(x);//ÎŞÏòÍ¼
+        G[y].push_back(x);//æ— å‘å›¾
     }
     timing=0;
     ans.clear();
     memset(DFN,0,sizeof(DFN));
-    memset(LOW,0,sizeof(LOW));//³õÊ¼»¯
+    memset(LOW,0,sizeof(LOW));//åˆå§‹åŒ–
     for(int i=1;i<=n;i++)
         if(!DFN[i]) tarjan(i,i);
     cout<<ans.size()<<endl;
@@ -49,7 +49,7 @@ int main(){
     for(it=ans.begin();it!=ans.end();it++){
         if(it==ans.begin()) cout<<*it;
         else cout<<" "<<*it;
-    }//Êä³ö¸îµã£¬×¢ÒâÓÃsetÅÅ¹ıĞò£¬¿ÉÒÔÑ¡ÔñÓÃqueueÀ´È¥ÖØÇÒÓĞĞò
+    }//è¾“å‡ºå‰²ç‚¹ï¼Œæ³¨æ„ç”¨setæ’è¿‡åºï¼Œå¯ä»¥é€‰æ‹©ç”¨queueæ¥å»é‡ä¸”æœ‰åº
     cout<<endl;
     return 0;
 }
