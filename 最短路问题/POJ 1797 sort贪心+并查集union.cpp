@@ -1,76 +1,72 @@
-#include<cstdio>
-#include<cstring>
-#include<iostream>
+//具体做法：
+//1，把所有边存下来，然后做一次比较，让边权大的靠前
+//2，遍历所有边，建立一棵树
+//3，当点1和点n的father相同时，
+//就说明这两点刚好连通，此时输出这个边权，结束
+//这样写可以保证这棵树上面的边都是最大边，
+//所以直接输出就可以
 #include<algorithm>
+#include<iostream>
+#include<cstring>
 using namespace std;
-const int maxn = 1010;
-int n, m;
-struct Edge
-{
-    int s, e, v;
-} ed[maxn * maxn];
 
-int a[maxn];
-void Init()
-{
-    for(int i = 1; i <= n ; i++)
-    {
-        a[i] = i;
-    }
-}
-int findf(int x)
-{
-    if(a[x] == x)
-    {
-        return a[x];
-    }
-    return a[x] = findf(a[x]);
-}
+int n,m;
+int father[1005];
 
-bool mag(int x, int y)
-{
-    int fx = findf(x);
-    int fy = findf(y);
-    if(fx == fy)
-    {
-        return false;
-    }
-    a[fx] = fy;
+struct edge{
+    int u;
+    int v;
+    int w;
+}edgee[1005*500];
+//开启结构体存下所有的边
+//实测，这里用的空间其实不大
+
+bool cmp(edge a,edge b){
+    return a.w>b.w;
+}//给sort使用的比较函数
+
+int findroot(int x){
+    while(father[x]!=-1) x=father[x];
+    return x;
+}//类似并查集，这个操作是寻找根结点
+
+bool unionn(int x,int y){
+    int fathx=findroot(x);
+    int fathy=findroot(y);
+    if(fathx==fathy) return false;
+    father[fathx]=fathy;
     return true;
-}
+}//连接两个原本没有关联的点
+//注意bool的妙用
 
-bool cmp(Edge A, Edge B)
-{
-    return A.v > B.v;
-}
-
-int main()
-{
-    int _, cas = 0;
-    scanf("%d", &_);
-    while(_--)
-    {
-        scanf("%d%d" , &n, &m);
-        cas++;
-        Init();
-        for(int i = 0; i < m ; i++)
-        {
-            scanf("%d%d%d", &ed[i].s, &ed[i].e, &ed[i].v);
-        }
-        sort(ed, ed + m , cmp);
-        int wanted = 0;
-        for(int i = 0; i < m; i++)
-        {
-            if(mag(ed[i].s, ed[i].e))
-            {
-                if(findf(1) == findf(n))
-                {
-                    wanted = ed[i].v;
+int main(){
+    ios::sync_with_stdio(false);
+    int T;
+    cin>>T;
+    int casee=1;
+    while(T--){
+        cin>>n>>m;
+        memset(father,-1,sizeof(father));
+        for(int i=0;i<m;i++){
+            int x,y,z;
+            cin>>x>>y>>z;
+            edgee[i].u=x;
+            edgee[i].v=y;
+            edgee[i].w=z;
+        }//由于我们用的操作是并查集
+        //所以不需要存两个边
+        sort(edgee,edgee+m,cmp);
+        int ans=0;
+        for(int i=0;i<m;i++){
+            if(unionn(edgee[i].u,edgee[i].v)){
+                if(findroot(1)!=-1&&findroot(n)!=-1&&findroot(1)==findroot(n)){
+                    ans=edgee[i].w;
                     break;
                 }
             }
         }
-        printf("Scenario #%d:\n%d\n\n", cas, wanted);
+        cout<<"Scenario #"<<casee++<<":"<<endl;
+        cout<<ans<<endl<<endl;
     }
     return 0;
 }
