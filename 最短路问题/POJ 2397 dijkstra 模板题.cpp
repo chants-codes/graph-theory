@@ -1,5 +1,5 @@
-//Õâ¸öÄ£°å¿ÉÒÔ½â¾ö¼òµ¥µÄ´øÖØ±ßµÄÎÊÌâ
-//×¢Òâdjikstra±ßÈ¨·Ç¸º
+//è¿™ä¸ªæ¨¡æ¿å¯ä»¥è§£å†³ç®€å•çš„å¸¦é‡è¾¹çš„é—®é¢˜
+//æ³¨æ„djikstraè¾¹æƒéè´Ÿ
 #include<iostream>
 #include<cstring>
 #include<vector>
@@ -15,18 +15,18 @@ struct point{
 };
 
 vector<point> edge[1005];
-//ÓÃvector+½á¹¹Ìå À´´æÍ¼
-//ÀàËÆÁÚ½ÓÁ´±í
+//ç”¨vector+ç»“æ„ä½“ æ¥å­˜å›¾
+//ç±»ä¼¼é‚»æ¥é“¾è¡¨
 void addedge(int u,int v,int w){
     edge[u].push_back(point(v,w));
-}//¼Ó±ßº¯Êı
+}//åŠ è¾¹å‡½æ•°
 
-struct node{//¸ø¶ÓÁĞµÄ½á¹¹Ìå£¬²»¿ÉÒÔ»ìÓÃ
+struct node{//ç»™é˜Ÿåˆ—çš„ç»“æ„ä½“ï¼Œä¸å¯ä»¥æ··ç”¨
     int v;int w;
     node(int _v=0,int _w=0):v(_v),w(_w){}
     bool operator <(const node &r)const{
         return w>r.w;
-    }//±È½Ïº¯Êı£¬±Ï¾¹ÊÇÓÅÏÈ¶ÓÁĞ
+    }//æ¯”è¾ƒå‡½æ•°ï¼Œæ¯•ç«Ÿæ˜¯ä¼˜å…ˆé˜Ÿåˆ—
 };
 
 void dijkstra(int start){
@@ -40,14 +40,14 @@ void dijkstra(int start){
         que.pop();
         if(vis[tmp.v]==1) continue;
         vis[tmp.v]=1;
-        for(int i=0;i<edge[tmp.v].size();i++){//±éÀúÕâ¸öµãµÄËùÓĞÖÕµã
-            int u=tmp.v;//Æğµãu
-            int v=edge[tmp.v][i].v;//ÖÕµãv
-            int w=edge[tmp.v][i].w;//±ßÈ¨w
+        for(int i=0;i<edge[tmp.v].size();i++){//éå†è¿™ä¸ªç‚¹çš„æ‰€æœ‰ç»ˆç‚¹
+            int u=tmp.v;//èµ·ç‚¹u
+            int v=edge[tmp.v][i].v;//ç»ˆç‚¹v
+            int w=edge[tmp.v][i].w;//è¾¹æƒw
             if(!vis[v]&&dis[v]>dis[u]+w){
                 dis[v]=dis[u]+w;
                 que.push(node(v,dis[v]));
-            }//×¢ÒâÕâÀïpushµÄ±ßÈ¨ÊÇdis
+            }//æ³¨æ„è¿™é‡Œpushçš„è¾¹æƒæ˜¯dis
         }
     }
     return ;
@@ -63,7 +63,7 @@ int main(){
         cin>>x>>y>>z;
         addedge(x,y,z);
         addedge(y,x,z);
-    }//ÎŞÏòÍ¼
+    }//æ— å‘å›¾
     memset(dis,0x3f3f3f3f,sizeof(dis));
     memset(vis,0,sizeof(vis));
     dijkstra(1);
