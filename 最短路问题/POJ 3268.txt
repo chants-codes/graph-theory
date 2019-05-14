@@ -1,0 +1,21 @@
+Silver Cow Party
+给出n个点和m条边，接着是m条边，代表从牛a到牛b需要花费c时间，现在所有牛要到牛x那里去参加聚会，并且所有牛参加聚会后还要回来，给你牛x，除了牛x之外的牛，他们都有一个参加聚会并且回来的最短时间，从这些最短时间里找出一个最大值输出 
+Input
+Line 1: Three space-separated integers, respectively: N, M, and X 
+Lines 2.. M+1: Line i+1 describes road i with three space-separated integers: Ai, Bi, and Ti. The described road runs from farm Ai to farm Bi, requiring Ti time units to traverse. 
+Output
+Line 1: One integer: the maximum of time any one cow must walk. 
+Sample Input
+4 8 2
+1 2 4
+1 3 2
+1 4 7
+2 1 1
+2 3 5
+3 1 2
+3 4 4
+4 2 3
+Sample Output
+10
+Hint
+Cow 4 proceeds directly to the party (3 units) and returns via farms 1 and 3 (7 units), for a total of 10 time units. 
