@@ -1,0 +1,23 @@
+Wormholes
+农夫约翰在探索他的许多农场，发现了一些惊人的虫洞。虫洞是很奇特的，因为它是一个单向通道，可让你进入虫洞的前达到目的地！他的N（1≤N≤500）个农场被编号为1..N，之间有M（1≤M≤2500）条路径，W（1≤W≤200）个虫洞。FJ作为一个狂热的时间旅行的爱好者，他要做到以下几点：开始在一个区域，通过一些路径和虫洞旅行，他要回到最开时出发的那个区域出发前的时间。也许他就能遇到自己了:)。为了帮助FJ找出这是否是可以或不可以，他会为你提供F个农场的完整的映射到（1≤F≤5）。所有的路径所花时间都不大于10000秒，所有的虫洞都不大于万秒的时间回溯。
+Input
+第1行：一个整数F表示接下来会有F个农场说明。 每个农场第一行：分别是三个空格隔开的整数：N，M和W 第2行到M+1行：三个空格分开的数字（S，E，T）描述，分别为：需要T秒走过S和E之间的双向路径。两个区域可能由一个以上的路径来连接。 第M +2到M+ W+1行：三个空格分开的数字（S，E，T）描述虫洞，描述单向路径，S到E且回溯T秒。
+Output
+F行，每行代表一个农场 每个农场单独的一行，” YES”表示能满足要求，”NO”表示不能满足要求。
+Sample Input
+2
+3 3 1
+1 2 2
+1 3 4
+2 3 1
+3 1 3
+3 2 1
+1 2 3
+2 3 4
+3 1 8
+Sample Output
+NO
+YES
+Hint
+For farm 1, FJ cannot travel back in time. 
+For farm 2, FJ could travel back in time by the cycle 1->2->3->1, arriving back at his starting location 1 second before he leaves. He could start from anywhere on the cycle to accomplish this. 
